@@ -26,7 +26,7 @@ to a single geography type.
     >> python parse_shapefiles.py -s WA
     >> python parse_shapefiles.py -g place
     >> python parse_shapefiles.py -s WA -g place
-    
+
 This script will generate a single csv file with your chosen data, and write
 it to `CSV_DIR`. Headers are pulled from `helpers/csv_helpers.py`. The methods
 for building rows specific to each geography type are also in `csv_helpers`.
@@ -71,7 +71,7 @@ def get_shapefile_directory_list(state=None, geo_type=None):
                 lambda directory: directory.endswith(geo_type_check),
                 shapefile_directory_list
             )
-    
+
     if state:
         state_check = '_%s_' % get_fips_code_for_state(state)
         shapefile_directory_list = filter(
@@ -106,16 +106,16 @@ def parse_shapefiles(shapefile_directory_list, state=None, geo_type=None):
     for shapefile_directory in shapefile_directory_list:
         _shapefile = _get_shapefile_from_dir(shapefile_directory)
         _geo_type = _get_geo_type_from_file(_shapefile)
-        
+
         print "Parsing: " + _shapefile + " ..."
         _shapefile_data = build_dict_list(_shapefile, state, _geo_type)
         data_dicts.extend(_shapefile_data)
-        
+
     output_geo = geo_type if geo_type else 'all_geographies'
     output_state = '_%s' % state if state else ''
     output_filename = '%s%s.csv' % (output_geo, output_state)
     sorted_data_dicts = sorted(data_dicts, key=itemgetter('FULL_GEOID'))
-    
+
     write_csv(output_filename, sorted_data_dicts)
 
 
@@ -124,7 +124,7 @@ def build_dict_list(filename, state=None, geo_type=None):
     layer = shapefile.GetLayer()
     state_check = get_fips_code_for_state(state) if state else None
     dict_list = []
-    
+
     feature = layer.GetNextFeature()
     while feature:
         item = {}
@@ -145,7 +145,7 @@ def build_dict_list(filename, state=None, geo_type=None):
                     'geoid': feature.GetField("GEOID"),
                     'state_dict': STATE_FIPS_DICT[str(_statefp)],
                 }
-                
+
                 item = csv_helpers.make_basic_row(feature, item, geo_type, _item_options)
                 if geo_type:
                     row_builder = getattr(csv_helpers, 'make_%s_row' % geo_type)
@@ -155,7 +155,7 @@ def build_dict_list(filename, state=None, geo_type=None):
             dict_list.append(item)
         feature.Destroy()
         feature = layer.GetNextFeature()
-        
+
     shapefile.Destroy()
 
     return dict_list
@@ -165,9 +165,9 @@ def write_csv(filename, dict_list):
     csvfilename = os.path.basename(filename).replace('.shp', '.csv')
     csvpath = normpath(join(CSV_DIR, csvfilename))
     csvfile = open(csvpath,'wb')
-    
+
     print "Writing: " + csvpath + " ...\n"
-    
+
     csvwriter = csv.DictWriter(
         csvfile,
         csv_helpers.get_fields_for_csv(
@@ -222,7 +222,7 @@ def main(args=None):
     for path in [CSV_DIR,]:
         if not isdir(path):
             os.mkdir(path)
-    
+
     state = options.state if options.state else None
     geo_type = options.geo_type if options.geo_type else None
 
@@ -246,4 +246,3 @@ if __name__ == '__main__':
         traceback.print_exc(file=sys.stderr)
         sys.stderr.write('\n')
         sys.exit(1)
-

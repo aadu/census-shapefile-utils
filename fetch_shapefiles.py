@@ -34,7 +34,7 @@ from os.path import isdir, join, normpath, split
 from __init__ import (DOWNLOAD_DIR, EXTRACT_DIR, STATE_ABBREV_LIST, \
     GEO_TYPES_LIST, DISABLE_AUTO_DOWNLOADS, get_fips_code_for_state)
 
-FTP_HOME = 'ftp://ftp2.census.gov/geo/tiger/TIGER2012/'
+FTP_HOME = 'ftp://ftp2.census.gov/geo/tiger/TIGER2014/'
 
 
 def get_filename_list_from_ftp(target, state):
@@ -81,9 +81,9 @@ def download_files_in_list(filename_list):
 
         f.close()
         downloaded_filename_list.append(filename)
-    
+
     return downloaded_filename_list
-    
+
 
 def extract_downloaded_file(filename):
     zipped = zipfile.ZipFile(filename, 'r')
@@ -130,7 +130,7 @@ def process_options(arglist=None):
         help='specific geographic type to download',
         choices=GEO_TYPES_LIST
     )
-    
+
     options, args = parser.parse_args(arglist)
     return options, args
 
@@ -145,7 +145,7 @@ def main(args=None):
     if args is None:
         args = sys.argv[1:]
     options, args = process_options(args)
-    
+
     # make sure we have the expected directories
     for path in [DOWNLOAD_DIR, EXTRACT_DIR]:
         if not isdir(path):
@@ -153,7 +153,7 @@ def main(args=None):
 
     state = options.state if options.state else None
     geo_type = options.geo_type if options.geo_type else None
-    
+
     # get one geo_type or all geo_types
     if geo_type:
         get_one_geo_type(
@@ -174,4 +174,3 @@ if __name__ == '__main__':
         traceback.print_exc(file=sys.stderr)
         sys.stderr.write('\n')
         sys.exit(1)
-
