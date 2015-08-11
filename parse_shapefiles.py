@@ -164,7 +164,7 @@ def build_dict_list(filename, state=None, geo_type=None):
 def write_csv(filename, dict_list):
     csvfilename = os.path.basename(filename).replace('.shp', '.csv')
     csvpath = normpath(join(CSV_DIR, csvfilename))
-    csvfile = open(csvpath,'wb')
+    csvfile = open(csvpath, 'wb')
 
     print "Writing: " + csvpath + " ...\n"
 
@@ -219,7 +219,7 @@ def main(args=None):
     options, args = process_options(args)
 
     # make sure we have the expected directories
-    for path in [CSV_DIR,]:
+    for path in [CSV_DIR, ]:
         if not isdir(path):
             os.mkdir(path)
 
@@ -227,14 +227,14 @@ def main(args=None):
     geo_type = options.geo_type if options.geo_type else None
 
     shapefile_directory_list = get_shapefile_directory_list(
-        state = state,
-        geo_type = geo_type,
+        state=state,
+        geo_type=geo_type,
     )
 
     parse_shapefiles(
         shapefile_directory_list,
-        state = state,
-        geo_type = geo_type,
+        state=state,
+        geo_type=geo_type,
     )
 
 

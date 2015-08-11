@@ -5,13 +5,10 @@ CSV_DIR = 'generated_csv'
 GEO_TYPES_DICT = {
     'cd': 'Congressional Districts',
     'county': 'Counties',
-    'elsd': 'Elementary School Districts',
     'place': 'Places',
-    'scsd': 'Secondary School Districts',
     'sldl': 'State Legislative Districts Lower',
     'sldu': 'State Legislative Districts Upper',
     'state': 'States',
-    'unsd': 'Unified School Districts',
     'zcta5': '5-Digit Zip Code Tabulation Area',
 }
 

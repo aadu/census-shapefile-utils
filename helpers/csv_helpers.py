@@ -14,16 +14,13 @@ def get_fields_for_csv(include_polygon=False):
         'DIVISION_NAME',
         'STATEFP',
         'GEOID',
-        'CD112FP',
+        'CD114FP',
         'CDSESSN',
         'COUNTYFP',
         'PLACEFP',
         'CLASSFP',
         'SLDLST',
         'SLDUST',
-        'ELSDLEA',
-        'SCSDLEA',
-        'UNSDLEA',
         'PCICBSA',
         'PCINECTA',
         'CSAFP',
@@ -55,16 +52,13 @@ def make_basic_row(feature, item, geo_type, item_options):
         'DIVISION_NAME': item_options['state_dict']['division_name'],
         'STATEFP': item_options['statefp'],
         'GEOID': item_options['geoid'],
-        'CD112FP': None,
+        'CD114FP': None,
         'CDSESSN': None,
         'COUNTYFP': None,
         'PLACEFP': None,
         'CLASSFP': None,
         'SLDLST': None,
         'SLDUST': None,
-        'ELSDLEA': None,
-        'SCSDLEA': None,
-        'UNSDLEA': None,
         'PCICBSA': None,
         'PCINECTA': None,
         'CSAFP': None,
@@ -96,16 +90,13 @@ def make_foo_row(feature, item, item_options):
         'FULL_GEOID': _build_full_geoid(_sumlev, item_options),
         'FULL_NAME': None,
         'SUMLEV': _sumlev,
-        'CD112FP': feature.GetField("CD112FP"),
+        'CD114FP': feature.GetField("CD114FP"),
         'CDSESSN': feature.GetField("CDSESSN"),
         'COUNTYFP': feature.GetField("COUNTYFP"),
         'PLACEFP': feature.GetField("PLACEFP"),
         'CLASSFP': feature.GetField("CLASSFP"),
         'SLDLST': feature.GetField("SLDLST"),
         'SLDUST': feature.GetField("SLDUST"),
-        'ELSDLEA': feature.GetField("ELSDLEA"),
-        'SCSDLEA': feature.GetField("SCSDLEA"),
-        'UNSDLEA': feature.GetField("UNSDLEA"),
         'PCICBSA': feature.GetField("PCICBSA"),
         'PCINECTA': feature.GetField("PCINECTA"),
         'CSAFP': feature.GetField("CSAFP"),
@@ -127,7 +118,7 @@ def make_cd_row(feature, item, item_options):
         'FULL_GEOID': _build_full_geoid(_sumlev, item_options),
         'FULL_NAME': '%s %s' % (item_options['state_dict']['name'], _namelsad),
         'SUMLEV': _sumlev,
-        'CD112FP': feature.GetField("CD112FP"),
+        'CD114FP': feature.GetField("CD114FP"),
         'CDSESSN': feature.GetField("CDSESSN"),
         'NAMELSAD': _namelsad,
         'LSAD': feature.GetField("LSAD"),
@@ -148,45 +139,6 @@ def make_county_row(feature, item, item_options):
         'METDIVFP': feature.GetField("METDIVFP"),
         'NAME': feature.GetField("NAME"),
         'NAMELSAD': _namelsad,
-        'LSAD': feature.GetField("LSAD"),
-    })
-    return item
-
-def make_elsd_row(feature, item, item_options):
-    _sumlev = '950'
-    _name = feature.GetField("NAME")
-    item.update({
-        'FULL_GEOID': _build_full_geoid(_sumlev, item_options),
-        'FULL_NAME': '%s, %s' % (_name, item_options['state_dict']['name']),
-        'SUMLEV': _sumlev,
-        'ELSDLEA': feature.GetField("ELSDLEA"),
-        'NAME': _name,
-        'LSAD': feature.GetField("LSAD"),
-    })
-    return item
-
-def make_scsd_row(feature, item, item_options):
-    _sumlev = '960'
-    _name = feature.GetField("NAME")
-    item.update({
-        'FULL_GEOID': _build_full_geoid(_sumlev, item_options),
-        'FULL_NAME': '%s, %s' % (_name, item_options['state_dict']['name']),
-        'SUMLEV': _sumlev,
-        'SCSDLEA': feature.GetField("SCSDLEA"),
-        'NAME': _name,
-        'LSAD': feature.GetField("LSAD"),
-    })
-    return item
-
-def make_unsd_row(feature, item, item_options):
-    _sumlev = '970'
-    _name = feature.GetField("NAME")
-    item.update({
-        'FULL_GEOID': _build_full_geoid(_sumlev, item_options),
-        'FULL_NAME': '%s, %s' % (_name, item_options['state_dict']['name']),
-        'SUMLEV': _sumlev,
-        'UNSDLEA': feature.GetField("UNSDLEA"),
-        'NAME': _name,
         'LSAD': feature.GetField("LSAD"),
     })
     return item
@@ -269,4 +221,3 @@ def make_zcta5_row(feature, item, geo_type, item_options):
             'GEOMETRY': str(_geom),
         })
     return item
-
