@@ -1,0 +1,2 @@
+#!/bin/bash
+shp2pgsql -s 4326 dma/dma_boundary.shp public.dma | psql -d census
