@@ -75,7 +75,7 @@ def make_basic_row(feature, item, geo_type, item_options):
     if item_options['include_polygon']:
         _geom = feature.GetGeometryRef()
         item.update({
-            'GEOMETRY': str(_geom),
+            'GEOMETRY': 'SRID=4269;' + str(_geom),
         })
     return item
 
@@ -218,6 +218,6 @@ def make_zcta5_row(feature, item, geo_type, item_options):
     if item_options['include_polygon']:
         _geom = feature.GetGeometryRef()
         item.update({
-            'GEOMETRY': str(_geom),
+            'GEOMETRY': 'SRID=4269;' + str(_geom),
         })
     return item
