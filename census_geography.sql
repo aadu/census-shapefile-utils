@@ -33,7 +33,9 @@ CREATE TABLE IF NOT EXISTS census_geography (
     aland character varying(24),
     intptlat character varying(16) NOT NULL,
     intptlon character varying(16) NOT NULL,
-    geom geometry(Geometry,4269)
+    geom geometry(Geometry, 4269)
 );
+
+SELECT UpdateGeometrySRID('census_geography', 'geom', 4326);
 
 \COPY census_geography FROM './generated_csv/all_geographies.csv' WITH CSV HEADER ENCODING 'latin1';
