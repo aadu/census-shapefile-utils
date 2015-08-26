@@ -1,5 +1,5 @@
 downloaded_files/
 extracted_files/
 generated_csv/
-.pyc
-.~
+*.pyc
+*.~

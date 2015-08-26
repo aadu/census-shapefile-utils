@@ -20,7 +20,7 @@ GEO_TYPES_LIST = sorted([
 # fetched automatically if someone runs `fetch_shapefiles.py` with no args.
 # If you do want the Zip Code Tabulation Area shapefile, target specifically:
 # >> python fetch_shapefiles.py -g zcta5
-DISABLE_AUTO_DOWNLOADS = ['zcta5',]
+DISABLE_AUTO_DOWNLOADS = ['place', ]
 
 
 STATE_FIPS_DICT = {

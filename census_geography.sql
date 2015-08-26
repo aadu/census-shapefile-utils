@@ -1,4 +1,5 @@
 -- USAGE: psql -f census_geography.sql -d census
+-- pg_dump -O -F c -f '/data/Dropbox (Optimus)/census/shapefiles/census_geography.dump' -W -t census_geography -d census
 
 CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
 
@@ -35,5 +36,4 @@ CREATE TABLE IF NOT EXISTS census_geography (
     geom geometry(Geometry,4269)
 );
 
-\COPY census_geography FROM './generated_csv/all_geographies.csv'
-  WITH CSV HEADER ENCODING 'latin1';
+\COPY census_geography FROM './generated_csv/all_geographies.csv' WITH CSV HEADER ENCODING 'latin1';
